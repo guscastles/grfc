@@ -4,12 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytest = "*"
-ipython = "*"
-radon = "*"
-pytest-cov = "*"
+pandas = "*"
+xlrd = "*"
 
 [dev-packages]
+ipython = "*"
+radon = "*"
+pylint = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.6"
