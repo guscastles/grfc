@@ -2,8 +2,8 @@ import pytest
 from grfc import scheduler as sc
 
 
-def time_data(data):
-    return data.iloc[:15, :7]
+def read_data(func):
+    return func(sc.read_data_file('GRFC 8H-1.xlsx', 'Round 4'))
 
 
 def test_wait_time():
@@ -13,7 +13,17 @@ def test_wait_time():
 
 
 def test_read_data_file():
-    data = time_data(sc.read_data_file('GRFC 8H-1.xlsx', 'Round 4'))
-    assert list(data.columns) == ['Shift', 'Player 1', 'Player 2', 'Player 3', 'Goalie', 'Present', 'Time Out (min)']
-    players = data['Present'].dropna()
-    assert list(players) == ['Angus', 'Diesel', 'Henrik', 'Lachlan ', 'Mitchell', 'Nicholas', 'Oliver', 'Xavier']
+    assert list(read_data(sc.time_data).columns) == ['Shift', 'Player 1', 'Player 2', 'Player 3', 'Goalie', 'Present', 'Time Out (min)']
+
+
+def test_players_present():
+    assert read_data(sc.players) == ['Angus', 'Diesel', 'Henrik', 'Lachlan', 'Mitchell', 'Nicholas', 'Oliver', 'Xavier']
+
+
+def test_goalies():
+    assert read_data(sc.goalies)== ['Diesel', 'Lachlan']
+
+
+def test_time_for_players():
+    assert sc.calculate_time(len(read_data(sc.players))) == 3.0 
+    assert False, 'To be completed...'
