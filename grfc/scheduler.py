@@ -1,19 +1,20 @@
 """
 Scheduler for the GRFC team players.
 """
-import pandas as pd
 import os
+import pandas as pd
 
 
-PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik', 'Noah', 'Elliot', 'Diesel', 'Angus', 'Xavier']
-TOTAL_TIME = 20
+PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik',
+           'Noah', 'Elliot', 'Diesel', 'Angus', 'Xavier']
+TOTAL_TIME = 40
 INPUT_FOLDER = f'{os.environ["HOME"]}{os.sep}input{os.sep}'
 
 
-def calculate_time(players):
-    if players == 7:
+def time_off(number_of_players):
+    if number_of_players == 7:
         return 0.0
-    return 1.5 * (4 - len(PLAYERS) + players)
+    return 1.5 * (4 - len(PLAYERS) + number_of_players)
 
 
 def read_data_file(filename, sheetname=None):
@@ -33,3 +34,18 @@ def players(data):
 
 def goalies(data):
     return list(map(lambda goalie: goalie.strip(), data.loc[:1, 'Goalie']))
+
+
+def match_data(filename, round_nbr):
+    data = read_data_file(filename, round_nbr)
+    players_list = players(data)
+    return players_list, goalies(data), time_off(len(players_list))
+
+
+def time_for_players(filename, round_nbr):
+
+    def get_time(player):
+        return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * 2
+
+    players_list, goalies_list, timeoff = match_data(filename, round_nbr)
+    return {player: get_time(player) for player in players_list}

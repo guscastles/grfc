@@ -2,13 +2,17 @@ import pytest
 from grfc import scheduler as sc
 
 
+GRFC_FILE = 'GRFC 8H-1.xlsx'
+ROUND = 'Round 4'
+
+
 def read_data(func):
-    return func(sc.read_data_file('GRFC 8H-1.xlsx', 'Round 4'))
+    return func(sc.read_data_file(GRFC_FILE, ROUND))
 
 
 def test_wait_time():
     players_present = [7, 8, 9, 10]
-    times = [sc.calculate_time(players) for players in players_present]
+    times = [sc.time_off(players) for players in players_present]
     assert times == [0, 3.0, 4.5, 6.0]
 
 
@@ -21,9 +25,13 @@ def test_players_present():
 
 
 def test_goalies():
-    assert read_data(sc.goalies)== ['Diesel', 'Lachlan']
+    assert read_data(sc.goalies) == ['Diesel', 'Lachlan']
 
 
 def test_time_for_players():
-    assert sc.calculate_time(len(read_data(sc.players))) == 3.0 
-    assert False, 'To be completed...'
+    times = sc.time_for_players(GRFC_FILE, ROUND)
+    assert times['Angus'] == 34.0
+
+
+def test_time_for_players_with_actual_off_time():
+    assert False, 'Yet to be implemented'
