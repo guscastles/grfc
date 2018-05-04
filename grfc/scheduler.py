@@ -2,6 +2,7 @@
 Scheduler for the GRFC team players.
 """
 import os
+from functools import reduce
 import pandas as pd
 
 
@@ -49,3 +50,16 @@ def time_for_players(filename, round_nbr):
 
     players_list, goalies_list, timeoff = match_data(filename, round_nbr)
     return {player: get_time(player) for player in players_list}
+
+
+def time_offs_per_player(data):
+
+    def players_from_shifts():
+
+        def get_shift(shift_nbr):
+            return list(data.loc[:13, f'Player {shift_nbr}'].dropna().values)
+
+        return reduce(lambda a, b: a + b, [get_shift(nbr) for nbr in range(1, 4)])
+        
+    players = players_from_shifts()
+    return {player: players.count(player) for player in players}

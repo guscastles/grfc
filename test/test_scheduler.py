@@ -34,4 +34,6 @@ def test_time_for_players():
 
 
 def test_time_for_players_with_actual_off_time():
-    assert False, 'Yet to be implemented'
+    data = sc.read_data_file(GRFC_FILE, ROUND)
+    time_offs = sc.time_offs_per_player(data)
+    assert time_offs['Nicholas'] == 1
