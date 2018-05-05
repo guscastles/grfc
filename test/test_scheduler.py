@@ -1,9 +1,6 @@
 import pytest
 from grfc import scheduler as sc
-
-
-GRFC_FILE = 'GRFC 8H-1.xlsx'
-ROUND = 'Round 4'
+from . import GRFC_FILE, ROUND
 
 
 def read_data(func):
@@ -33,7 +30,7 @@ def test_time_for_players():
     assert times['Angus'] == 34.0
 
 
-def test_time_for_players_with_actual_off_time():
+def test_time_off_per_player():
     data = sc.read_data_file(GRFC_FILE, ROUND)
     time_offs = sc.time_offs_per_player(data)
     assert time_offs['Nicholas'] == 1

@@ -4,6 +4,7 @@ Scheduler for the GRFC team players.
 import os
 from functools import reduce
 import pandas as pd
+import xlrd
 
 
 PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik',
@@ -22,7 +23,10 @@ def read_data_file(filename, sheetname=None):
     """Reads the Excel file with a given round data especified by filename
        in the standard input folder.
     """
-    return pd.read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
+    try:
+        return pd.read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
+    except xlrd.biffh.XLRDError:
+        return None
 
 
 def time_data(data):
@@ -34,22 +38,30 @@ def players(data):
 
 
 def goalies(data):
-    return list(map(lambda goalie: goalie.strip(), data.loc[:1, 'Goalie']))
+    return list(map(lambda goalie: goalie.strip(), data.loc[:1, 'Goalie'].dropna()))
 
 
 def match_data(filename, round_nbr):
     data = read_data_file(filename, round_nbr)
-    players_list = players(data)
-    return players_list, goalies(data), time_off(len(players_list))
+    if data is not None:
+        players_list = players(data)
+        nbr_of_time_offs = time_offs_per_player(data)
+        return players_list, goalies(data), time_off(len(players_list)), nbr_of_time_offs
+    return None, None, None, None
 
 
 def time_for_players(filename, round_nbr):
 
-    def get_time(player):
-        return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * 2
+    def get_time(player, time_offs):
+        return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * time_offs
 
-    players_list, goalies_list, timeoff = match_data(filename, round_nbr)
-    return {player: get_time(player) for player in players_list}
+    def data_is_ok():
+        return players_list and goalies_list and timeoff and nbr_of_time_offs
+
+    players_list, goalies_list, timeoff, nbr_of_time_offs = match_data(filename, round_nbr)
+    if data_is_ok():
+        return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
+    return None
 
 
 def time_offs_per_player(data):
