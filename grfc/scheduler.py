@@ -58,9 +58,15 @@ def time_for_players(filename, round_nbr):
     def data_is_ok():
         return players_list and goalies_list and timeoff and nbr_of_time_offs
 
+    def time_stats():
+        return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
+
+    def goalies_stats():
+        return {player: 0 if player not in goalies_list else goalies_list.count(player) for player in goalies_list}
+
     players_list, goalies_list, timeoff, nbr_of_time_offs = match_data(filename, round_nbr)
     if data_is_ok():
-        return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
+        return time_stats(), goalies_stats() 
     return None
 
 
@@ -72,6 +78,6 @@ def time_offs_per_player(data):
             return list(data.loc[:13, f'Player {shift_nbr}'].dropna().values)
 
         return reduce(lambda a, b: a + b, [get_shift(nbr) for nbr in range(1, 4)])
-        
-    players = players_from_shifts()
-    return {player: players.count(player) for player in players}
+
+    shift_players = players_from_shifts()
+    return {player: shift_players.count(player) for player in shift_players}

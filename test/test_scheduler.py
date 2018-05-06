@@ -1,6 +1,6 @@
 import pytest
-from grfc import scheduler as sc
-from . import GRFC_FILE, ROUND
+from grfc import scheduler as sc, GRFC_FILE
+from . import ROUND
 
 
 def read_data(func):
@@ -27,7 +27,7 @@ def test_goalies():
 
 def test_time_for_players():
     times = sc.time_for_players(GRFC_FILE, ROUND)
-    assert times['Angus'] == 34.0
+    assert times[0]['Angus'] == 34.0
 
 
 def test_time_off_per_player():

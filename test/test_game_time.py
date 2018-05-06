@@ -1,32 +1,13 @@
 import pytest
-import pandas as pd
-from grfc import scheduler as sc
-from . import GRFC_FILE, ROUND
-
-
-def valid_data(data):
-    return pd.DataFrame(list(filter(lambda dt: dt is not None, data)))
-
-
-def rename_stats(stats):
-    count = stats.loc['count']
-    count.name = 'matches played'
-    mean = stats.loc['mean']
-    mean.name = 'average time played'
-    return pd.DataFrame([count, mean])
-
-
-def data_stats(data):
-    stats = rename_stats(data.describe().loc[['count', 'mean']])
-    total_time = data.sum()
-    total_time.name = 'total time played'
-    return stats.append(total_time)
+from grfc import scheduler as sc, game_time as gt, GRFC_FILE
+from . import ROUND
 
 
 @pytest.mark.wip
 def test_overall_time_offs():
     data = [sc.time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
-    stats = data_stats(valid_data(data))
-    assert len(stats) == 3
+    stats = gt.data_stats(*gt.valid_data(data))
+    assert len(stats) == 4
     assert len(stats.columns) == 10
-    assert dict(stats.loc[:, 'Nicholas']) == {'matches played': 4.0, 'average time played': 34.75, 'total time played': 139.0}
+    assert 'turns as goalie' in stats.index
+    assert dict(stats.loc[:, 'Nicholas']) == {'matches played': 5.0, 'average time played': 33.4, 'total time played': 167.0, 'turns as goalie': 1.0}
