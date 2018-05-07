@@ -61,7 +61,8 @@ def run():
     def get_data():
         return [time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
 
-    print(data_stats(*valid_data(get_data())).to_html())
+    with open('report.html', 'w') as report:
+        report.write(data_stats(*valid_data(get_data())).to_html())
 
 
 if __name__ == '__main__':
