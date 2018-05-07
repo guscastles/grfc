@@ -1,8 +1,9 @@
 """
 Gives the mains statistics for the Tigers team.
 """
+import subprocess
 import pandas as pd
-from . import scheduler as sc, GRFC_FILE
+from . import scheduler as sc, GRFC_FILE, TOTAL_TIME
 
 
 def valid_data(data):
@@ -31,9 +32,38 @@ def data_stats(data, goalies=None):
     return stats.append(total_time).fillna(0.0)
 
 
-if __name__ == '__main__':
+def time_for_players(filename, round_nbr):
+    """
+    Read the data file and returns tuples with time stats and goalies stats.
+    """
+
+    def get_time(player, time_offs):
+        return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * time_offs
+
+    def data_is_ok():
+        return players_list and goalies_list and timeoff and nbr_of_time_offs
+
+    def time_stats():
+        return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
+
+    def goalies_stats():
+        return {player: 0 if player not in goalies_list else goalies_list.count(player)
+                for player in goalies_list}
+
+    players_list, goalies_list, timeoff, nbr_of_time_offs = sc.match_data(filename, round_nbr)
+    if data_is_ok():
+        return time_stats(), goalies_stats()
+    return None
+
+
+def run():
 
     def get_data():
-        return [sc.time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
+        return [time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
 
     print(data_stats(*valid_data(get_data())).to_html())
+
+
+if __name__ == '__main__':
+    run()
+    subprocess.run(['firefox', 'report.html'])

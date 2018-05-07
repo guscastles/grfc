@@ -1,16 +1,10 @@
 """
 Scheduler for the GRFC team players.
 """
-import os
 from functools import reduce
 import pandas as pd
 import xlrd
-
-
-PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik',
-           'Noah', 'Elliot', 'Diesel', 'Angus', 'Xavier']
-TOTAL_TIME = 40
-INPUT_FOLDER = f'{os.environ["HOME"]}{os.sep}input{os.sep}'
+from grfc import PLAYERS, INPUT_FOLDER
 
 
 def time_off(number_of_players):
@@ -48,30 +42,6 @@ def match_data(filename, round_nbr):
         nbr_of_time_offs = time_offs_per_player(data)
         return players_list, goalies(data), time_off(len(players_list)), nbr_of_time_offs
     return None, None, None, None
-
-
-def time_for_players(filename, round_nbr):
-    """
-    Read the data file and returns tuples with time stats and goalies stats.
-    """
-
-    def get_time(player, time_offs):
-        return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * time_offs
-
-    def data_is_ok():
-        return players_list and goalies_list and timeoff and nbr_of_time_offs
-
-    def time_stats():
-        return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
-
-    def goalies_stats():
-        return {player: 0 if player not in goalies_list else goalies_list.count(player)
-                for player in goalies_list}
-
-    players_list, goalies_list, timeoff, nbr_of_time_offs = match_data(filename, round_nbr)
-    if data_is_ok():
-        return time_stats(), goalies_stats()
-    return None
 
 
 def time_offs_per_player(data):
