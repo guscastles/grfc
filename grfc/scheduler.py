@@ -51,6 +51,9 @@ def match_data(filename, round_nbr):
 
 
 def time_for_players(filename, round_nbr):
+    """
+    Read the data file and returns tuples with time stats and goalies stats.
+    """
 
     def get_time(player, time_offs):
         return TOTAL_TIME - timeoff if player in goalies_list else TOTAL_TIME - timeoff * time_offs
@@ -62,15 +65,19 @@ def time_for_players(filename, round_nbr):
         return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
 
     def goalies_stats():
-        return {player: 0 if player not in goalies_list else goalies_list.count(player) for player in goalies_list}
+        return {player: 0 if player not in goalies_list else goalies_list.count(player)
+                for player in goalies_list}
 
     players_list, goalies_list, timeoff, nbr_of_time_offs = match_data(filename, round_nbr)
     if data_is_ok():
-        return time_stats(), goalies_stats() 
+        return time_stats(), goalies_stats()
     return None
 
 
 def time_offs_per_player(data):
+    """
+    Calculates the number of time offs per player from the given data
+    """
 
     def players_from_shifts():
 

@@ -1,4 +1,3 @@
-import pytest
 from grfc import scheduler as sc, GRFC_FILE
 from . import ROUND
 

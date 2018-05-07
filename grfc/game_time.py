@@ -6,7 +6,7 @@ from . import scheduler as sc, GRFC_FILE
 
 
 def valid_data(data):
-    
+
     def no_empty_data():
         return filter(lambda dt: dt is not None, data)
 
