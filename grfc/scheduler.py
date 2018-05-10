@@ -7,16 +7,14 @@ import xlrd
 from grfc import PLAYERS, INPUT_FOLDER
 
 
+GOALIE = 'Goalie'
+
+
 def time_off(number_of_players):
-    if number_of_players == 7:
-        return 0.0
-    return 1.5 * (4 - len(PLAYERS) + number_of_players)
+    return 1.5 * (4 - len(PLAYERS) + number_of_players) if number_of_players > 7 else 0
 
 
 def read_data_file(filename, sheetname=None):
-    """Reads the Excel file with a given round data especified by filename
-       in the standard input folder.
-    """
     try:
         return pd.read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
     except xlrd.biffh.XLRDError:
@@ -27,20 +25,19 @@ def time_data(data):
     return data.iloc[:15, :7]
 
 
-def players(data):
-    return list(map(lambda player: player.strip(), data['Present'].dropna()))
+def players(data, column='Present'):
+    return [player.strip() for player in data.loc[:13, column].dropna()] if data is not None else data
 
 
-def goalies(data):
-    return list(map(lambda goalie: goalie.strip(), data.loc[:1, 'Goalie'].dropna()))
+def goalies(data, column=GOALIE):
+    return players(data, column);
 
 
 def match_data(filename, round_nbr):
     data = read_data_file(filename, round_nbr)
+    players_list = players(data)
     if data is not None:
-        players_list = players(data)
-        nbr_of_time_offs = time_offs_per_player(data)
-        return players_list, goalies(data), time_off(len(players_list)), nbr_of_time_offs
+        return players_list, players(data, GOALIE), time_off(len(players_list)), time_offs_per_player(data)
     return None, None, None, None
 
 
@@ -52,7 +49,7 @@ def time_offs_per_player(data):
     def players_from_shifts():
 
         def get_shift(shift_nbr):
-            return list(data.loc[:13, f'Player {shift_nbr}'].dropna().values)
+            return list(data.loc[:13, f'Player {shift_nbr}'].dropna())
 
         return reduce(lambda a, b: a + b, [get_shift(nbr) for nbr in range(1, 4)])
 
