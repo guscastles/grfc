@@ -2,6 +2,7 @@
 Scheduler for the GRFC team players.
 """
 from functools import reduce
+from pandas import read_excel, options
 import pandas as pd
 import xlrd
 from grfc import PLAYERS, INPUT_FOLDER
@@ -16,7 +17,8 @@ def time_off(number_of_players):
 
 def read_data_file(filename, sheetname=None):
     try:
-        return pd.read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
+        options.display.float_format = '{:,.1f}'.format
+        return read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
     except xlrd.biffh.XLRDError:
         return None
 
@@ -33,12 +35,17 @@ def goalies(data, column=GOALIE):
     return players(data, column);
 
 
+def goals_scored(data):
+    return data.iloc[16:, 2].dropna()
+
+
 def match_data(filename, round_nbr):
     data = read_data_file(filename, round_nbr)
     players_list = players(data)
     if data is not None:
-        return players_list, players(data, GOALIE), time_off(len(players_list)), time_offs_per_player(data)
-    return None, None, None, None
+        return players_list, players(data, GOALIE), time_off(len(players_list)), \
+               time_offs_per_player(data), goals_scored(data)
+    return None, None, None, None, None
 
 
 def time_offs_per_player(data):

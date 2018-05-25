@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pandas = "*"
 xlrd = "*"
+"jinja2" = "*"
 
 [dev-packages]
 ipython = "*"

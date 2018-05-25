@@ -50,7 +50,7 @@ def time_for_players(filename, round_nbr):
         return {player: 0 if player not in goalies_list else goalies_list.count(player)
                 for player in goalies_list}
 
-    players_list, goalies_list, timeoff, nbr_of_time_offs = sc.match_data(filename, round_nbr)
+    players_list, goalies_list, timeoff, nbr_of_time_offs, _ = sc.match_data(filename, round_nbr)
     if data_is_ok():
         return time_stats(), goalies_stats()
     return None
