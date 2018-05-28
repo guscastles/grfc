@@ -3,7 +3,6 @@ Scheduler for the GRFC team players.
 """
 from functools import reduce
 from pandas import read_excel, options
-import pandas as pd
 import xlrd
 from grfc import PLAYERS, INPUT_FOLDER
 
@@ -28,11 +27,11 @@ def time_data(data):
 
 
 def players(data, column='Present'):
-    return [player.strip() for player in data.loc[:13, column].dropna()] if data is not None else data
+    return list(map(lambda p: p.strip(), data.loc[:13, column].dropna())) if data is not None else data
 
 
 def goalies(data, column=GOALIE):
-    return players(data, column);
+    return players(data, column)
 
 
 def goals_scored(data):

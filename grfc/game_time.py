@@ -21,7 +21,7 @@ def rename_stats_fields(stats, goalies):
     count.name = 'matches played'
     mean = stats.loc['mean']
     mean.name = 'average time played'
-    goalies.name = 'turns as goalie'
+    goalies.name = 'turns in goals'
     return pd.DataFrame([count, mean, goalies])
 
 
@@ -30,6 +30,10 @@ def data_stats(data, goalies=None):
     total_time = data.sum()
     total_time.name = 'total time played'
     return stats.append(total_time).fillna(0.0)
+
+
+def goalies_stats(goalies_list):
+    return {player: goalies_list.count(player) for player in goalies_list}
 
 
 def time_for_players(filename, round_nbr):
@@ -46,13 +50,9 @@ def time_for_players(filename, round_nbr):
     def time_stats():
         return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
 
-    def goalies_stats():
-        return {player: 0 if player not in goalies_list else goalies_list.count(player)
-                for player in goalies_list}
-
     players_list, goalies_list, timeoff, nbr_of_time_offs, _ = sc.match_data(filename, round_nbr)
     if data_is_ok():
-        return time_stats(), goalies_stats()
+        return time_stats(), goalies_stats(goalies_list)
     return None
 
 
@@ -63,8 +63,8 @@ def run():
 
     with open('report.html', 'w') as report:
         report.write(data_stats(*valid_data(get_data())).to_html())
+    subprocess.run(['firefox', 'report.html'])
 
 
 if __name__ == '__main__':
     run()
-    subprocess.run(['firefox', 'report.html'])
