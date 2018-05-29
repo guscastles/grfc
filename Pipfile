@@ -8,6 +8,7 @@ pandas = "*"
 xlrd = "*"
 "jinja2" = "*"
 matplotlib = "*"
+spyder = "*"
 
 [dev-packages]
 ipython = "*"

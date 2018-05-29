@@ -10,3 +10,4 @@ htmlcov/
 */.project
 *~
 .ipynb_checkpoints/
+.spyproject/
