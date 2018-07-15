@@ -9,3 +9,5 @@ htmlcov/
 *.html
 */.project
 .spyproject/
+client_secret.json
+credentials.json
