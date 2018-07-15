@@ -3,7 +3,7 @@ Test module for game time
 """
 import os
 import pytest
-from grfc import game_time as gt, INPUT_FOLDER, GRFC_FILE
+from grfc import play_time as gt, INPUT_FOLDER, GRFC_FILE
 from . import ROUND
 
 
@@ -16,11 +16,11 @@ def test_overall_time_offs():
     data = [gt.time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 6)]
     stats = gt.data_stats(*gt.valid_data(data))
     assert len(stats) == 4 and len(stats.columns) == 10
-    assert 'turns as goalie' in stats.index
+    assert 'turns in goals' in stats.index
     assert dict(stats.loc[:, 'Nicholas']) == {'matches played': 5.0,
                                               'average time played': 33.4,
                                               'total time played': 167.0,
-                                              'turns as goalie': 1.0}
+                                              'turns in goals': 1.0}
 
 
 def test_run():

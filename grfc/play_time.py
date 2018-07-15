@@ -3,7 +3,7 @@ Gives the mains statistics for the Tigers team.
 """
 import subprocess
 import pandas as pd
-from . import scheduler as sc, GRFC_FILE, TOTAL_TIME
+from . import game_data as sc, GRFC_FILE, TOTAL_TIME
 
 
 def valid_data(data):
@@ -16,13 +16,16 @@ def valid_data(data):
     return time_stats, goalies
 
 
+def _set_column_name(column, name):
+    column.name = name
+    return column
+
+
 def rename_stats_fields(stats, goalies):
-    count = stats.loc['count']
-    count.name = 'matches played'
-    mean = stats.loc['mean']
-    mean.name = 'average time played'
-    goalies.name = 'turns as goalie'
-    return pd.DataFrame([count, mean, goalies])
+    matches_played = _set_column_name(stats.loc['count'], 'matches played')
+    average_time_played = _set_column_name(stats.loc['mean'], 'average time played')
+    turns_in_goals = _set_column_name(goalies, 'turns in goals')
+    return pd.DataFrame([matches_played, average_time_played, turns_in_goals])
 
 
 def data_stats(data, goalies=None):

@@ -1,0 +1,2 @@
+data = reduce(lambda a, b: a.append(b),  [goals_scored(read_data_file('GRFC 8H-1.xlsx', f'Round {nbr}')) for nbr in range(1, 7)]
+data.count_values()
