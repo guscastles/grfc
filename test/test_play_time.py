@@ -7,7 +7,6 @@ from grfc import play_time as gt, INPUT_FOLDER, GRFC_FILE
 from . import ROUND
 
 
-@pytest.mark.wip
 def test_file_available():
     assert os.path.isfile(f'{INPUT_FOLDER}{GRFC_FILE}'), 'File is not present'
 
@@ -23,6 +22,7 @@ def test_overall_time_offs():
                                               'turns in goals': 1.0}
 
 
+@pytest.mark.wip
 def test_run():
     gt.run()
     assert os.path.isfile('report.html')
@@ -31,3 +31,10 @@ def test_run():
 def test_time_for_players():
     times = gt.time_for_players(GRFC_FILE, ROUND)
     assert times[0]['Angus'] == 34.0
+
+
+@pytest.mark.wip
+def test_goalies_stats():
+    goalies_list = ['Nicholas', 'Herik', 'Nicholas', 'Noah']
+    stats = gt.goalies_stats(goalies_list)
+    assert 'Nicholas' in stats
