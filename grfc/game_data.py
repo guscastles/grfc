@@ -27,7 +27,7 @@ def time_data(data):
 
 
 def players(data, column='Present'):
-    return list(map(lambda p: p.strip(), data.loc[:13, column].dropna())) if data is not None else data
+    return [rec.strip() for rec in  data.loc[:13, column].dropna()] if data is not None else data
 
 
 def goalies(data, column=GOALIE):

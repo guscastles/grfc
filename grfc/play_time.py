@@ -66,7 +66,7 @@ def run():
 
     with open('report.html', 'w') as report:
         report.write(data_stats(*valid_data(get_data())).to_html())
-    subprocess.run(['firefox', 'report.html'])
+    #subprocess.run(['firefox', 'report.html'])
 
 
 if __name__ == '__main__':
