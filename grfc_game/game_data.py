@@ -4,7 +4,7 @@ Scheduler for the GRFC team players.
 from functools import reduce
 from pandas import read_excel, options
 import xlrd
-from grfc import PLAYERS, INPUT_FOLDER
+from . import PLAYERS, INPUT_FOLDER
 
 
 GOALIE = 'Goalie'
@@ -52,12 +52,12 @@ def time_offs_per_player(data):
     Calculates the number of time offs per player from the given data
     """
 
-    def players_from_shifts():
+    def _players_from_shifts():
 
-        def get_shift(shift_nbr):
+        def _get_shift(shift_nbr):
             return list(data.loc[:13, f'Player {shift_nbr}'].dropna())
 
-        return reduce(lambda a, b: a + b, [get_shift(nbr) for nbr in range(1, 4)])
+        return reduce(lambda a, b: a + b, [_get_shift(nbr) for nbr in range(1, 4)])
 
-    shift_players = players_from_shifts()
+    shift_players = _players_from_shifts()
     return {player: shift_players.count(player) for player in shift_players}

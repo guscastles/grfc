@@ -1,7 +1,7 @@
 """
 Test module for the scheduler
 """
-from grfc import game_data as sc, GRFC_FILE
+from grfc_game import game_data as sc, GRFC_FILE
 from . import ROUND
 
 

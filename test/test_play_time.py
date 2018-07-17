@@ -2,8 +2,8 @@
 Test module for game time
 """
 import os
-import pytest
-from grfc import play_time as gt, INPUT_FOLDER, GRFC_FILE
+from shutil import os as shos
+from grfc_game import play_time as gt, INPUT_FOLDER, GRFC_FILE
 from . import ROUND
 
 
@@ -23,7 +23,13 @@ def test_overall_time_offs():
 
 
 def test_generate_report():
-    gt.generate_report()
+    report = gt.generate_report()
+    assert report.startswith('<table ')
+
+
+def test_report_file():
+    shos.unlink('report.html')
+    gt.write_report(gt.generate_report())
     assert os.path.isfile('report.html')
 
 

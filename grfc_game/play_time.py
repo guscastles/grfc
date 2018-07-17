@@ -1,9 +1,8 @@
 """
 Gives the mains statistics for the Tigers team.
 """
-import subprocess
 import pandas as pd
-from . import game_data as sc, GRFC_FILE, TOTAL_TIME
+from . import game_data as gd, GRFC_FILE, TOTAL_TIME
 
 
 def valid_data(data):
@@ -53,20 +52,23 @@ def time_for_players(filename, round_nbr):
     def time_stats():
         return {player: get_time(player, nbr_of_time_offs[player]) for player in players_list}
 
-    players_list, goalies_list, timeoff, nbr_of_time_offs, _ = sc.match_data(filename, round_nbr)
+    players_list, goalies_list, timeoff, nbr_of_time_offs, _ = gd.match_data(filename, round_nbr)
     if data_is_ok():
         return time_stats(), goalies_stats(goalies_list)
     return None
 
 
 def generate_report():
-
-    def get_data():
+    """Generates the final report with time played and other
+    information.
+    """
+    
+    def _get_data():
         return [time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
 
-    with open('report.html', 'w') as report:
-        report.write(data_stats(*valid_data(get_data())).to_html())
+    return data_stats(*valid_data(_get_data())).to_html()
 
 
-if __name__ == '__main__':
-    generate_report()
+def write_report(report):
+    with open('report.html', 'w') as output:
+        output.write(report)

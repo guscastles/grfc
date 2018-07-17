@@ -3,7 +3,7 @@
 Tests the reading of the file from the Google Sheets website.
 """
 import pandas as pd
-from grfc import remote_handler as rh
+from grfc_game import remote_handler as rh
 
 
 RANGE_NAME = 'Round {}!A1:H29'
