@@ -59,15 +59,14 @@ def time_for_players(filename, round_nbr):
     return None
 
 
-def run():
+def generate_report():
 
     def get_data():
         return [time_for_players(GRFC_FILE, f'Round {round_nbr}') for round_nbr in range(1, 19)]
 
     with open('report.html', 'w') as report:
         report.write(data_stats(*valid_data(get_data())).to_html())
-    #subprocess.run(['firefox', 'report.html'])
 
 
 if __name__ == '__main__':
-    run()
+    generate_report()

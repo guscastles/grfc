@@ -22,9 +22,8 @@ def test_overall_time_offs():
                                               'turns in goals': 1.0}
 
 
-@pytest.mark.wip
-def test_run():
-    gt.run()
+def test_generate_report():
+    gt.generate_report()
     assert os.path.isfile('report.html')
 
 
@@ -33,7 +32,6 @@ def test_time_for_players():
     assert times[0]['Angus'] == 34.0
 
 
-@pytest.mark.wip
 def test_goalies_stats():
     goalies_list = ['Nicholas', 'Herik', 'Nicholas', 'Noah']
     stats = gt.goalies_stats(goalies_list)
