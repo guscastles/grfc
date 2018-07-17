@@ -3,7 +3,7 @@ Test module for game time
 """
 import os
 from shutil import os as shos
-from grfc_game import play_time as gt, INPUT_FOLDER, GRFC_FILE
+from grfc.game import play_time as gt, INPUT_FOLDER, GRFC_FILE
 from . import ROUND
 
 

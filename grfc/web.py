@@ -2,7 +2,7 @@
 Web module for the GRFC app.
 """
 from flask import Flask
-import grfc_game.play_time as pt
+from grfc.game import play_time as pt
 APP = Flask(__name__)
 
 
