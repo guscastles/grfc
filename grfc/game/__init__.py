@@ -9,6 +9,7 @@ GRFC_FILE = 'GRFC 8H-1.xlsx'
 PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik',
            'Noah', 'Elliot', 'Diesel', 'Angus', 'Xavier']
 TOTAL_TIME = 40
+RANGE_NAME = 'Round {}!A1:H29'
 
 
 def _input_folder():

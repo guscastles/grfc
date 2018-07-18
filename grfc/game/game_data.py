@@ -4,7 +4,7 @@ Scheduler for the GRFC team players.
 from functools import reduce
 from pandas import read_excel, options
 import xlrd
-from . import PLAYERS, INPUT_FOLDER
+from . import PLAYERS, INPUT_FOLDER, remote_handler as rh
 
 
 GOALIE = 'Goalie'
@@ -38,8 +38,8 @@ def goals_scored(data):
     return data.iloc[16:, 2].dropna()
 
 
-def match_data(filename, round_nbr):
-    data = read_data_file(filename, round_nbr)
+def match_data(round_nbr, filename):
+    data = read_data_file(filename, round_nbr) if filename else rh.fetch_data(round_nbr)
     players_list = players(data)
     if data is not None:
         return players_list, players(data, GOALIE), time_off(len(players_list)), \
@@ -48,9 +48,7 @@ def match_data(filename, round_nbr):
 
 
 def time_offs_per_player(data):
-    """
-    Calculates the number of time offs per player from the given data
-    """
+    """Calculates the number of time offs per player from the given data"""
 
     def _players_from_shifts():
 
