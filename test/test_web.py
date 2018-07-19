@@ -28,6 +28,6 @@ def test_report_from_file(client):
 
 @pytest.mark.flask
 def test_report_from_google(client):
-    response = client.get('/report')
+    response = client.get('/report/')
     soup = BSoup(response.data, 'html5lib')
     assert soup.find('table').find('tbody').find('th').text == 'matches played'

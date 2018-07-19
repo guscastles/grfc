@@ -11,7 +11,7 @@ def index():
     return "Georges River Tigers - 8H"
 
 
-@APP.route("/report")
+@APP.route("/report/")
 def report():
     return pt.generate_report()
 
