@@ -1,5 +1,5 @@
 """
-Scheduler for the GRFC team players.
+Game data collected on the GRFC team players.
 """
 from functools import reduce
 from pandas import read_excel, options
@@ -15,6 +15,7 @@ def time_off(number_of_players):
 
 
 def read_data_file(filename, sheetname=None):
+    """Fetches the raw data from an Excel spreadsheet"""
     try:
         options.display.float_format = '{:,.1f}'.format
         return read_excel(f'{INPUT_FOLDER}{filename}', sheet_name=sheetname)
