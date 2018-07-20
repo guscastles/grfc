@@ -13,3 +13,4 @@ htmlcov/
 .spyproject/
 client_secret.json
 credentials.json
+.idea/

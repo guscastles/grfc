@@ -17,5 +17,5 @@ By all means, enhance it, play around and send a pull request.
 
 ## Creator and Main Enhancer
 
-[Gus Garcia][https://github.com/guscastles] is the one to talk to if you
+[Gus Garcia](https://github.com/guscastles) is the one to talk to if you
 would like to contribute.
