@@ -51,7 +51,7 @@ def generate_report(filename=None):
     """Generates the final report with time played and other
     information.
     """
-    return data_stats(*valid_data(pts.get_data(time_for_players, filename))).to_html()
+    return data_stats(*valid_data(pts.all_players_times(time_for_players, filename))).to_html()
 
 
 def write_report(report):

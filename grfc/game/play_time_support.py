@@ -3,11 +3,13 @@ from functools import reduce
 from . import TOTAL_TIME
 
 
-def get_data(time_for_players, filename):
+def all_players_times(time_for_players, filename):
+
     return [time_for_players(f'Round {round_nbr}', filename) for round_nbr in range(1, 19)]
 
 
 def set_column_name(column, name):
+    """Sets the new name for the given column."""
     column.name = name
     return column
 
