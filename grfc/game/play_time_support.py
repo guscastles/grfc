@@ -23,9 +23,9 @@ def time_stats(players_list, timeoff, nbr_of_time_offs):
     """Returns the time statistics from the given parameters"""
 
     def _get_time(player, time_offs):
-        return TOTAL_TIME - timeoff * time_offs
+        return TOTAL_TIME - timeoff * (0 if time_offs is None else time_offs)
 
-    return {player: _get_time(player, nbr_of_time_offs[player]) for player in players_list}
+    return {player: _get_time(player, nbr_of_time_offs.get(player)) for player in players_list}
 
 
 def data_is_ok(goalies_list):
