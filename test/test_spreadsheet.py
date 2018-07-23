@@ -25,9 +25,16 @@ def test_fecth_invalid_round_from_google_sheets(all_sheets):
     assert not values
 
 
-@pytest.mark.sst
 def test_fetch_all_rounds_data_from_google_sheets(all_sheets):
     all_rounds = [rh.spreadsheet_data(all_sheets, RANGE_NAME.format(round)) for round in range(1, 19)]
     round_1_values = all_rounds[0].get('values', [])
     round_1 = pd.DataFrame(round_1_values[1:], columns=round_1_values[0])
     assert round_1.loc[0, 'Player 1'] == 'Elliot'
+
+
+@pytest.mark.sst
+def test_fetch_whole_tigers_spreadsheet(all_sheets):
+    ranges = [f"'Round {round}'!A1:G29" for round in range(1, 19)]
+    tigers = rh.spreadsheet_data(all_sheets, ranges)
+    assert tigers.get('valueRanges', [])
+
