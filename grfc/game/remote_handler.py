@@ -23,13 +23,13 @@ def credentials():
     return creds
 
 
-def all_spreadsheets(user_credentials):
+def all_spreadsheets(user_credentials=credentials()):
     """Fetches all spreadsheets from the Google Sheets account"""
     service = build('sheets', 'v4', http=user_credentials.authorize(Http()))
     return service.spreadsheets()
 
 
-def spreadsheet_data(spreadsheets, ranges_names, spreadsheet_id=SPREADSHEET_ID):
+def spreadsheet_data(ranges_names, spreadsheets=all_spreadsheets(), spreadsheet_id=SPREADSHEET_ID):
     """Fetches a specific data range in a specific spreadsheet"""
     try:
         values = spreadsheets.values()

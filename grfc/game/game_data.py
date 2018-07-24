@@ -28,6 +28,7 @@ def time_data(data):
 
 
 def players(data, column='Present'):
+    import ipdb; ipdb.set_trace()
     return [rec.strip() for rec in  data.loc[:13, column].dropna()] if data is not None else data
 
 
@@ -39,8 +40,7 @@ def goals_scored(data):
     return data.iloc[16:, 2].dropna()
 
 
-def match_data(round_nbr, filename):
-    data = read_data_file(filename, round_nbr) if filename else rh.fetch_data(round_nbr)
+def match_data(data):
     players_list = players(data)
     if data is not None:
         return players_list, players(data, GOALIE), time_off(len(players_list)), \
