@@ -28,7 +28,6 @@ def time_data(data):
 
 
 def players(data, column='Present'):
-    import ipdb; ipdb.set_trace()
     return [rec.strip() for rec in  data.loc[:13, column].dropna()] if data is not None else data
 
 

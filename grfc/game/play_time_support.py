@@ -7,11 +7,15 @@ import grfc.game.remote_handler as rh
 
 
 def all_players_times(time_for_players, filename):
+
+    def _create_dataframe(round_sheet):
+        values = round_sheet.get('values', [])
+        return pd.DataFrame(values[1:], columns=values[0])
     
     def _remote_data():
         ranges = [f"'Round {round}'!A1:G29" for round in range(1, 19)]
         sheet = rh.spreadsheet_data(ranges)
-        return [pd.DataFrame(round_sheet.get('values', [])) for round_sheet in sheet.get('valueRanges', [])]
+        return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
 
     def _get_data(round_nbr):
         return gd.read_data_file(filename, f'Round {round_nbr}') if filename else remote_data[round_nbr - 1]
