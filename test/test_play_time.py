@@ -2,9 +2,15 @@
 Test module for game time
 """
 import os
+import pytest
 from shutil import os as shos
-from grfc.game import play_time as pt, INPUT_FOLDER, GRFC_FILE
+from grfc.game import play_time as pt, INPUT_FOLDER, GRFC_FILE, \
+     game_data as gd, play_time_support as pts
 from . import ROUND
+
+
+def _data_from_file(round_nbr):
+    return gd.read_data_file(GRFC_FILE, round_nbr)
 
 
 def test_file_available():
@@ -12,7 +18,7 @@ def test_file_available():
 
 
 def test_overall_time_offs():
-    data = [pt.time_for_players(f'Round {round_nbr}', GRFC_FILE) for round_nbr in range(1, 6)]
+    data = [pts.time_for_players(_data_from_file(f'Round {round_nbr}')) for round_nbr in range(1, 6)]
     stats = pt.data_stats(*pt.valid_data(data))
     assert len(stats) == 4 and len(stats.columns) == 10
     assert 'turns in goals' in stats.index
@@ -35,11 +41,11 @@ def test_report_file():
 
 
 def test_time_for_players():
-    times = pt.time_for_players(ROUND, GRFC_FILE)
+    times = pts.time_for_players(_data_from_file(ROUND))
     assert times[0]['Angus'] == 34.0
 
 
 def test_goalies_stats():
     goalies_list = ['Nicholas', 'Herik', 'Nicholas', 'Noah']
-    stats = pt.goalies_stats(goalies_list)
+    stats = pts.goalies_stats(goalies_list)
     assert 'Nicholas' in stats

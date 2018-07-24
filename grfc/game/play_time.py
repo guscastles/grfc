@@ -31,27 +31,11 @@ def data_stats(data, goalies):
     return data
 
 
-def goalies_stats(goalies_list):
-    """Returns the number of turn in goals for each player"""
-    return {player: goalies_list.count(player) for player in goalies_list}
-
-
-def time_for_players(round_nbr, filename):
-    """
-    Read the data file and returns tuples with time stats and goalies stats.
-    """
-    players_list, goalies_list, timeoff, nbr_of_time_offs, _ = gd.match_data(round_nbr, filename)
-    if pts.data_is_ok(goalies_list):
-        return pts.time_stats(players_list, timeoff, nbr_of_time_offs), \
-               goalies_stats(goalies_list)
-    return None
-
-
 def generate_report(filename=None):
     """Generates the final report with time played and other
     information.
     """
-    return data_stats(*valid_data(pts.all_players_times(time_for_players, filename))).to_html()
+    return data_stats(*valid_data(pts.all_players_times(pts.time_for_players, filename))).to_html()
 
 
 def write_report(report):
