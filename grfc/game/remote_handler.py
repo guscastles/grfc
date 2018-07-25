@@ -6,7 +6,8 @@ from apiclient.discovery import build
 from googleapiclient.errors import HttpError
 from httplib2 import Http
 from oauth2client import file as credentials_file, client, tools
-import pandas as pd
+from pandas import DataFrame
+import numpy as np
 
 
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
@@ -44,5 +45,16 @@ def fetch_data(round_name):
     """Convenience function to retrieve the data from a specific round"""
     round_data = spreadsheet_data(all_spreadsheets(credentials()), round_name)
     round_values = round_data.get('values', [])
-    return pd.DataFrame(round_values[1:], columns=round_values[0])
-    
+    return DataFrame(round_values[1:], columns=round_values[0])
+
+
+def _create_dataframe(round_sheet):
+    values = round_sheet.get('values', [])
+    return DataFrame(values[1:], columns=values[0]).replace({None: np.nan, '': np.nan})
+
+
+def remote_data():
+    ranges = [f"'Round {round}'!A1:F29" for round in range(1, 19)]
+    sheet = spreadsheet_data(ranges)
+    return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
+

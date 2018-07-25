@@ -6,25 +6,16 @@ import grfc.game.game_data as gd
 import grfc.game.remote_handler as rh
 
 
-def all_players_times(time_for_players, filename):
-
-    def _create_dataframe(round_sheet):
-        values = round_sheet.get('values', [])
-        return pd.DataFrame(values[1:], columns=values[0])
-    
-    def _remote_data():
-        ranges = [f"'Round {round}'!A1:G29" for round in range(1, 19)]
-        sheet = rh.spreadsheet_data(ranges)
-        return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
+def all_players_times(filename):
 
     def _get_data(round_nbr):
         return gd.read_data_file(filename, f'Round {round_nbr}') if filename else remote_data[round_nbr - 1]
 
-    remote_data = _remote_data()
-    return [time_for_players(_get_data(round_nbr)) for round_nbr in range(1, 19)]
+    remote_data = rh.remote_data()
+    return [_time_for_players(_get_data(round_nbr)) for round_nbr in range(1, 19)]
 
 
-def time_for_players(data):
+def _time_for_players(data):
     """ Read the data file and returns tuples with time stats and goalies stats.
     """
     players_list, goalies_list, timeoff, nbr_of_time_offs, _ = gd.match_data(data)
