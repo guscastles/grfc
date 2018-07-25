@@ -18,7 +18,7 @@ def test_file_available():
 
 
 def test_overall_time_offs():
-    data = [pts.time_for_players(_data_from_file(f'Round {round_nbr}')) for round_nbr in range(1, 6)]
+    data = [pts._time_for_players(_data_from_file(f'Round {round_nbr}')) for round_nbr in range(1, 6)]
     stats = pt.data_stats(*pt.valid_data(data))
     assert len(stats) == 4 and len(stats.columns) == 10
     assert 'turns in goals' in stats.index
@@ -41,7 +41,7 @@ def test_report_file():
 
 
 def test_time_for_players():
-    times = pts.time_for_players(_data_from_file(ROUND))
+    times = pts._time_for_players(_data_from_file(ROUND))
     assert times[0]['Angus'] == 34.0
 
 
