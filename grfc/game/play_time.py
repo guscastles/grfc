@@ -29,7 +29,7 @@ def data_stats(data, goalies):
         total_time.name = 'total time played'
         stts = stats.append(total_time).fillna(0.0)
         for col in stts:
-            stts[col] = stts[col].map('{:,.1f}'.format)
+            stts[col] = stts[col].round(1)
         return stts
     return data
 
