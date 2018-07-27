@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from functools import reduce
+from functools import reduce, partial
 import pandas as pd
 from . import TOTAL_TIME
 import grfc.game.game_data as gd
@@ -9,9 +9,12 @@ import grfc.game.remote_handler as rh
 def all_players_times(filename):
 
     def _get_data(round_nbr):
-        return gd.read_data_file(filename, f'Round {round_nbr}') if filename else remote_data[round_nbr - 1]
+        return remote_data(f'Round {round_nbr}') if filename else remote_data[round_nbr - 1]
 
-    remote_data = rh.remote_data()
+    if filename:
+        remote_data = partial(gd.read_data_file, filename)
+    else:
+        remote_data = rh.remote_data()
     return [_time_for_players(_get_data(round_nbr)) for round_nbr in range(1, 19)]
 
 
