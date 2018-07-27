@@ -24,10 +24,23 @@ def credentials():
     return creds
 
 
+def fetch_data(round_name):
+    """Convenience function to retrieve the data from a specific round"""
+    round_data = spreadsheet_data(all_spreadsheets(credentials()), round_name)
+    round_values = round_data.get('values', [])
+    return DataFrame(round_values[1:], columns=round_values[0])
+
+
 def all_spreadsheets(user_credentials=credentials()):
     """Fetches all spreadsheets from the Google Sheets account"""
     service = build('sheets', 'v4', http=user_credentials.authorize(Http()))
     return service.spreadsheets()
+
+
+def remote_data():
+    ranges = [f"'Round {round}'!A1:F29" for round in range(1, 19)]
+    sheet = spreadsheet_data(ranges)
+    return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
 
 
 def spreadsheet_data(ranges_names, spreadsheets=all_spreadsheets(), spreadsheet_id=SPREADSHEET_ID):
@@ -41,20 +54,7 @@ def spreadsheet_data(ranges_names, spreadsheets=all_spreadsheets(), spreadsheet_
         return {}
 
 
-def fetch_data(round_name):
-    """Convenience function to retrieve the data from a specific round"""
-    round_data = spreadsheet_data(all_spreadsheets(credentials()), round_name)
-    round_values = round_data.get('values', [])
-    return DataFrame(round_values[1:], columns=round_values[0])
-
-
 def _create_dataframe(round_sheet):
     values = round_sheet.get('values', [])
     return DataFrame(values[1:], columns=values[0]).replace({None: np.nan, '': np.nan})
-
-
-def remote_data():
-    ranges = [f"'Round {round}'!A1:F29" for round in range(1, 19)]
-    sheet = spreadsheet_data(ranges)
-    return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
 
