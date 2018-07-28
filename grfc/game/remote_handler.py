@@ -38,6 +38,8 @@ def all_spreadsheets(user_credentials=credentials()):
 
 
 def remote_data():
+    """Fetches the data from the Google Sheets website, returning
+    all valid spreadsheets (Round 1 through 18)."""
     ranges = [f"'Round {round}'!A1:F29" for round in range(1, 19)]
     sheet = spreadsheet_data(ranges)
     return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
