@@ -28,6 +28,11 @@ def test_overall_time_offs():
                                               'turns in goals': 1.0}
 
 
+def test_no_data_stats():
+    data = []
+    assert pt.data_stats(*pt.valid_data(data)).empty
+
+
 def test_generate_report():
     report = pt.generate_report(GRFC_FILE)
     assert report.startswith('<table ')
@@ -38,6 +43,7 @@ def test_report_file():
         shos.unlink('report.html')
     pt.write_report(pt.generate_report(GRFC_FILE))
     assert os.path.isfile('report.html')
+    shos.unlink('report.html')
 
 
 def test_time_for_players():
@@ -49,3 +55,4 @@ def test_goalies_stats():
     goalies_list = ['Nathan', 'Henry', 'Nathan', 'Norbert']
     stats = pts.goalies_stats(goalies_list)
     assert 'Nathan' in stats
+
