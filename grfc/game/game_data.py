@@ -4,7 +4,7 @@ Game data collected on the GRFC team players.
 from functools import reduce
 from pandas import read_excel, options
 import xlrd
-from . import PLAYERS, INPUT_FOLDER, remote_handler as rh
+from . import PLAYERS, INPUT_FOLDER
 
 
 GOALIE = 'Goalie'

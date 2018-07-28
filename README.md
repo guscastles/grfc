@@ -11,6 +11,15 @@ albeit simple, it gives opportunity to explore the Python Data Analyis
 Library (Pandas), fetching data from a Google Sheets spreadsheet and,
 why not, functional programming style in Python.
 
+## Testing
+
+The test file 'GRFC U8.xlsx' is under folder *misc*. The names are not the real
+names of the players, for obvious reasons, but the data is the real one
+collected throughout the season.
+
+The file must be placed in a folder under the user area root named *input*, on
+both Linux and Windows OSes.
+
 ## Cloning is encouraged :)
 
 By all means, enhance it, play around and send a pull request.

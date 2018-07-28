@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+Support functions for the play_time module.
+"""
 from functools import reduce, partial
 import pandas as pd
-from . import TOTAL_TIME
 import grfc.game.game_data as gd
 import grfc.game.remote_handler as rh
+from . import TOTAL_TIME
 
 
 def all_players_times(filename):

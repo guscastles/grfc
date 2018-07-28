@@ -3,7 +3,6 @@ Moduel that gives the mains statistics for the Tigers team.
 """
 import pandas as pd
 import grfc.game.play_time_support as pts
-from . import game_data as gd
 
 
 def valid_data(data):

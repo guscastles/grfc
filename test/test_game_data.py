@@ -21,15 +21,16 @@ def test_read_data_file():
 
 
 def test_players_present():
-    assert read_data(sc.players) == ['Angus', 'Diesel', 'Henrik', 'Lachlan',
-                                     'Mitchell', 'Nicholas', 'Oliver', 'Xavier']
+    assert read_data(sc.players) == ['Albert', 'Donald', 'Harry', 'Louis',
+                                     'Mark', 'Nathan', 'Oswald', 'Charles']
 
 
 def test_goalies():
-    assert read_data(sc.goalies) == ['Diesel', 'Lachlan']
+    assert read_data(sc.goalies) == ['Donald', 'Louis']
 
 
 def test_time_off_per_player():
     data = sc.read_data_file(GRFC_FILE, ROUND)
     time_offs = sc.time_offs_per_player(data)
-    assert time_offs['Nicholas'] == 1
+    assert time_offs['Nathan'] == 1
+

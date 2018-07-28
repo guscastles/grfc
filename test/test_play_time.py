@@ -22,7 +22,7 @@ def test_overall_time_offs():
     stats = pt.data_stats(*pt.valid_data(data))
     assert len(stats) == 4 and len(stats.columns) == 10
     assert 'turns in goals' in stats.index
-    assert dict(stats.loc[:, 'Nicholas']) == {'matches played': 5.0,
+    assert dict(stats.loc[:, 'Nathan']) == {'matches played': 5.0,
                                               'average time played': 33.4,
                                               'total time played': 167.0,
                                               'turns in goals': 1.0}
@@ -42,10 +42,10 @@ def test_report_file():
 
 def test_time_for_players():
     times = pts._time_for_players(_data_from_file(ROUND))
-    assert times[0]['Angus'] == 34.0
+    assert times[0]['Albert'] == 34.0
 
 
 def test_goalies_stats():
-    goalies_list = ['Nicholas', 'Herik', 'Nicholas', 'Noah']
+    goalies_list = ['Nathan', 'Henry', 'Nathan', 'Norbert']
     stats = pts.goalies_stats(goalies_list)
-    assert 'Nicholas' in stats
+    assert 'Nathan' in stats

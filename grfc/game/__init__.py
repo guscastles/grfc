@@ -5,7 +5,7 @@ import os
 
 
 __all__ = ['game_data', 'play_time', 'remote_handler', 'season_history']
-GRFC_FILE = 'GRFC 8H-1.xlsx'
+GRFC_FILE = 'GRFC U8.xlsx'
 PLAYERS = ['Mitch', 'Ollie', 'Lachie', 'Nick', 'Henrik',
            'Noah', 'Elliot', 'Diesel', 'Angus', 'Xavier']
 TOTAL_TIME = 40
