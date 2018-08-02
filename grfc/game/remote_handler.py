@@ -26,7 +26,7 @@ def credentials():
 
 def fetch_data(round_name):
     """Convenience function to retrieve the data from a specific round"""
-    round_data = spreadsheet_data(all_spreadsheets(credentials()), round_name)
+    round_data = spreadsheet_data(round_name, all_spreadsheets(credentials()))
     round_values = round_data.get('values', [])
     return DataFrame(round_values[1:], columns=round_values[0])
 

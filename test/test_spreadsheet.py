@@ -27,9 +27,14 @@ def test_fetch_all_rounds_data_from_google_sheets():
     assert round_1.loc[0, 'Player 1'] == 'Elliot'
 
 
-@pytest.mark.sst
 def test_fetch_whole_tigers_spreadsheet():
     ranges = [f"'Round {round}'!A1:G29" for round in range(1, 19)]
     tigers = rh.spreadsheet_data(ranges)
     assert tigers.get('valueRanges', [])
+
+
+@pytest.mark.wip
+def test_fetch_data():
+    round_4 = rh.fetch_data('Round 4')
+    assert round_4.loc[15, 'Player 3'] == 'Engadine Eagles'
 

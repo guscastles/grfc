@@ -8,7 +8,7 @@ from . import game_data as gd
 
 def read_raw_data(filename):
     """Returns the goals for each match"""
-    return [gd.read_data_file(filename, f'Round {nbr}').iloc[15:, 2:4] for nbr in range(1, 9)]
+    return [gd.read_data_file(filename, f'Round {nbr}').iloc[15:, 2:4] for nbr in range(1, 19)]
 
 
 def change_name(raw_data):
@@ -59,4 +59,6 @@ def raw_goals_by_player(data):
 
 
 def goals_by_player(data):
+    """Number of goals by player"""
     return data.value_counts()
+

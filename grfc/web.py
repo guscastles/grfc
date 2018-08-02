@@ -7,6 +7,7 @@ APP = Flask(__name__)
 
 
 @APP.route("/")
+@APP.route("/index")
 def index():
     return "Georges River Tigers - 8H"
 
