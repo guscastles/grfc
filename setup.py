@@ -11,6 +11,6 @@ setup(name="grfc",
       url="https://github.com/guscastles/grfc/",
       description="GRFC Statistics App",
       long_description=readme_md,
-      packages=["grfc", "grfc.game"],
+      packages=["grfc", "grfc.game", "app"],
       version="0.1.0",
 )

@@ -1,4 +1,4 @@
-from grfc import application
+from app import application
 
 
 if __name__ == '__main__':
