@@ -1,5 +1,5 @@
-from grfc import app
+from grfc import application
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
