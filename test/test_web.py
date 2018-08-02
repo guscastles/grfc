@@ -8,10 +8,10 @@ from grfc import web
 
 @pytest.fixture
 def client():
-    web.APP.config['TESTING'] = True
-    client = web.APP.test_client()
+    web.application.config['TESTING'] = True
+    client = web.application.test_client()
 
-    with web.APP.app_context():
+    with web.application.app_context():
         yield client
 
 

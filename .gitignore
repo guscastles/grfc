@@ -15,7 +15,7 @@ client_secret.json
 credentials.json
 .idea/
 .directory
-grfc.zip
+dist/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

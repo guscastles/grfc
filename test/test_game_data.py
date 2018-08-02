@@ -1,12 +1,13 @@
 """
 Test module for the game data module
 """
-from grfc.game import game_data as gd, GRFC_FILE
+from grfc.game import game_data as gd
+from . import GRFC_TEST_FILE
 from . import ROUND
 
 
 def read_data(func):
-    return func(gd.read_data_file(GRFC_FILE, ROUND))
+    return func(gd.read_data_file(GRFC_TEST_FILE, ROUND))
 
 
 def read_empty_data(func):
@@ -34,7 +35,7 @@ def test_goalies():
 
 
 def test_time_off_per_player():
-    data = gd.read_data_file(GRFC_FILE, ROUND)
+    data = gd.read_data_file(GRFC_TEST_FILE, ROUND)
     time_offs = gd.time_offs_per_player(data)
     assert time_offs['Nathan'] == 1
 
