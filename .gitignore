@@ -14,3 +14,10 @@ htmlcov/
 client_secret.json
 credentials.json
 .idea/
+.directory
+.elasticbeanstalk/
+.project
+**/.ropeproject/
+dist/
+*.csv
+*.pkl
