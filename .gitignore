@@ -21,3 +21,4 @@ credentials.json
 dist/
 *.csv
 *.pkl
+*.vim
