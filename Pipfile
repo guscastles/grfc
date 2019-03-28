@@ -12,6 +12,7 @@ google-api-python-client = "*"
 "oauth2client" = "*"
 flask = "*"
 "beautifulsoup4" = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 ipython = "*"
