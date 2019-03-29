@@ -3,16 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to grfc's documentation!
+Welcome to GRFC's documentation!
 ================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   roster/roster_doc
-   grfcapp/app_doc
-   grfc/game/game
+   docs/roster
+   docs/grfcapp
+   docs/game
 
 Indices and tables
 ==================
