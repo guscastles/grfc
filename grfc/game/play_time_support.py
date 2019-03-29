@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
+"""
+**play_time_support.py**
+
+Supporing functions for module play_time. 
+
+@author: Nick Miamoto-Garcia
+"""
 from functools import reduce
 import pandas as pd
-from . import TOTAL_TIME
+from grfc.game import TOTAL_TIME
 import grfc.game.game_data as gd
 import grfc.game.remote_handler as rh
 

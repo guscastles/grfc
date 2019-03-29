@@ -10,7 +10,9 @@ Welcome to grfc's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   roster/roster_doc
+   grfcapp/app_doc
+   grfc/game/game
 
 Indices and tables
 ==================
@@ -18,3 +20,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+

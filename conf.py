@@ -12,19 +12,23 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('./roster'))
+sys.path.insert(0, os.path.abspath('./grfc'))
+sys.path.insert(0, os.path.abspath('./grfc/game'))
+sys.path.insert(0, os.path.abspath('./grfcapp'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'grfc'
+project = 'GRFC'
 copyright = '2019, Gus Garcia'
 author = 'Gus Garcia'
 
 # The short X.Y version
-version = ''
+version = '1.0'
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
 

@@ -3,7 +3,7 @@ Season history module, created from a Jupyter Notebook.
 """
 import functools as ft
 from pandas import DataFrame
-from . import game_data as gd
+from grfc.game import game_data as gd
 
 
 def read_raw_data(filename):
