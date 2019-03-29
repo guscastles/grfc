@@ -1,4 +1,6 @@
 """
+grfc.game package
+
 Source module for the GRFC stats application.
 """
 import os

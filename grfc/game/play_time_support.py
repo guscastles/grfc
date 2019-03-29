@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-**play_time_support.py**
+play_time_support module
 
 Supporing functions for module play_time. 
-
-@author: Nick Miamoto-Garcia
 """
 from functools import reduce
 import pandas as pd

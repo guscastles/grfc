@@ -13,6 +13,7 @@ Welcome to GRFC's documentation!
    docs/roster
    docs/grfcapp
    docs/game
+   docs/grfc
 
 Indices and tables
 ==================

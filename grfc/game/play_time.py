@@ -1,5 +1,5 @@
 """
-**play_time.py**
+play_time module
 
 Module that gives the main statistics for the Tigers team.
 """

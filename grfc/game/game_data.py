@@ -1,4 +1,6 @@
 """
+game_data module
+
 Game data collected on the GRFC team players.
 """
 from functools import reduce
