@@ -26,7 +26,23 @@ def test_login_screen(client):
     assert body.find("input", type="submit")
 
 
-def test_authenticate(client):
+def test_authenticate_with_short_password(client):
     response = client.post("/authenticate", data={"username": "test", "password": "test"})
-    body = BeautifulSoup(response.data)
-    assert body.find("div", attrs={"name": "choice"})
+    message = response.json.get("errors").get("password").pop()
+    assert message == 'Field must be between 12 and 20 characters long.'
+
+
+def test_authenticate_with_no_username(client):
+    response = client.post("/authenticate", data={"username": "", "password": "test"})
+    message = response.json.get("errors").get("username").pop()
+    assert message == "This field is required."
+
+
+def test_authenticate_with_invalid_username(client):
+    response = client.post("/authenticate", data={"username": "<script>alert('Alert')</script>", "password": "test"})
+    message = response.json.get("errors").get("username").pop()
+    assert message == "Invalid username"
+
+
+#    body = BeautifulSoup(response.data)
+#    assert body.find("div", attrs={"name": "choice"})

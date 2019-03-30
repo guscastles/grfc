@@ -13,6 +13,7 @@ google-api-python-client = "*"
 flask = "*"
 "beautifulsoup4" = "*"
 sqlalchemy = "*"
+flask-inputs = "*"
 
 [dev-packages]
 ipython = "*"
