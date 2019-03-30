@@ -22,3 +22,14 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+Technology Stack
+================
+* Heroku hosting
+* Flask
+* JQuery
+* SQLite
+
+Application Overview
+====================
+
+The application's initial screen is the login screen. Users are pre-signed up, with usernames and passwords stored in the database.
