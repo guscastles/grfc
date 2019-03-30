@@ -1,10 +1,12 @@
 """
+game_data module
+
 Game data collected on the GRFC team players.
 """
 from functools import reduce
 from pandas import read_excel, options
 import xlrd
-from . import PLAYERS, INPUT_FOLDER
+from grfc.game import PLAYERS, INPUT_FOLDER, remote_handler as rh
 
 
 GOALIE = 'Goalie'
@@ -27,14 +29,6 @@ def time_data(data):
     return data.iloc[:15, :7]
 
 
-def match_data(data):
-    players_list = players(data)
-    if data is not None:
-        return players_list, goalies(data), time_off(len(players_list)), \
-               time_offs_per_player(data), goals_scored(data)
-    return None, None, None, None, None
-
-
 def players(data, column='Present'):
     return [rec.strip() for rec in  data.loc[:13, column].dropna()] if data is not None else data
 
@@ -45,6 +39,14 @@ def goalies(data, column=GOALIE):
 
 def goals_scored(data):
     return data.iloc[16:, 2].dropna()
+
+
+def match_data(data):
+    players_list = players(data)
+    if data is not None:
+        return players_list, players(data, GOALIE), time_off(len(players_list)), \
+               time_offs_per_player(data), goals_scored(data)
+    return None, None, None, None, None
 
 
 def time_offs_per_player(data):
@@ -59,4 +61,3 @@ def time_offs_per_player(data):
 
     shift_players = _players_from_shifts()
     return {player: shift_players.count(player) for player in shift_players}
-

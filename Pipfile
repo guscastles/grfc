@@ -12,6 +12,8 @@ google-api-python-client = "*"
 "oauth2client" = "*"
 flask = "*"
 "beautifulsoup4" = "*"
+sqlalchemy = "*"
+flask-inputs = "*"
 
 [dev-packages]
 ipython = "*"
@@ -19,6 +21,7 @@ radon = "*"
 pylint = "*"
 pytest = "*"
 pytest-cov = "*"
+ipdb = "*"
 
 [requires]
 python_version = "3.6"

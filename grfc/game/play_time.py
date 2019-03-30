@@ -1,8 +1,11 @@
 """
-Moduel that gives the mains statistics for the Tigers team.
+play_time module
+
+Module that gives the main statistics for the Tigers team.
 """
 import pandas as pd
 import grfc.game.play_time_support as pts
+from grfc.game import game_data as gd
 
 
 def valid_data(data):
@@ -26,10 +29,7 @@ def data_stats(data, goalies):
         stats = rename_stats_fields(data.describe().loc[['count', 'mean']], goalies.sum())
         total_time = data.sum()
         total_time.name = 'total time played'
-        stts = stats.append(total_time).fillna(0.0)
-        for col in stts:
-            stts[col] = stts[col].round(1)
-        return stts
+        return stats.append(total_time).fillna(0.0)
     return data
 
 
@@ -37,7 +37,7 @@ def generate_report(filename=None):
     """Generates the final report with time played and other
     information.
     """
-    return data_stats(*valid_data(pts.all_players_times(filename))).style.data.to_html()
+    return data_stats(*valid_data(pts.all_players_times(pts.time_for_players, filename))).to_html()
 
 
 def write_report(report):
