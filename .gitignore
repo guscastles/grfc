@@ -6,7 +6,6 @@ __pycache__
 *.egg-info/
 .coverage
 htmlcov/
-*.html
 */.project
 *~
 .ipynb_checkpoints/
@@ -22,3 +21,5 @@ dist/
 *.csv
 *.pkl
 *.vim
+misc/*.html
+roster/*.html
