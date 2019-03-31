@@ -14,6 +14,8 @@ flask = "*"
 "beautifulsoup4" = "*"
 sqlalchemy = "*"
 flask-inputs = "*"
+wtforms = "*"
+html5lib = "*"
 
 [dev-packages]
 ipython = "*"
@@ -24,4 +26,4 @@ pytest-cov = "*"
 ipdb = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
