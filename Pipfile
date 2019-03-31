@@ -16,6 +16,7 @@ sqlalchemy = "*"
 flask-inputs = "*"
 wtforms = "*"
 html5lib = "*"
+gunicorn = "*"
 
 [dev-packages]
 ipython = "*"
