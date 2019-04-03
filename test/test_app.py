@@ -20,7 +20,7 @@ def test_login_path():
 
 def test_login_screen(client):
     response = client.get("/login")
-    body = BeautifulSoup(response.data)
+    body = BeautifulSoup(response.data, 'html5lib')
     assert body.find("input", attrs={"name": "username"})
     assert body.find("input", attrs={"name": "password"})
     assert body.find("input", type="submit")

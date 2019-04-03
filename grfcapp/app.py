@@ -4,9 +4,11 @@ GRFC Stats Collector Application
 Flask module holding the main routes for the mobile application.
 """
 from flask import Flask, render_template, redirect, url_for
+from flask_talisman import Talisman
 from grfcapp.validation import check_request_params
 app = Flask(__name__)
 """Main Flask object"""
+Talisman(app)
 
 app.before_request(check_request_params)
 

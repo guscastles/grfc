@@ -17,6 +17,7 @@ flask-inputs = "*"
 wtforms = "*"
 html5lib = "*"
 gunicorn = "*"
+flask-talisman = "*"
 
 [dev-packages]
 ipython = "*"
