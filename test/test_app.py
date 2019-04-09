@@ -42,7 +42,21 @@ def test_authenticate_with_invalid_username(client):
     response = client.post("/authenticate", data={"username": "<script>alert('Alert')</script>", "password": "test"})
     message = response.json.get("errors").get("username").pop()
     assert message == "Invalid username"
-
-
 #    body = BeautifulSoup(response.data)
 #    assert body.find("div", attrs={"name": "choice"})
+
+
+@pytest.mark.wip
+def test_game_report_page():
+    with app.test_request_context('/game_report/round/2'):
+        assert flask.request.path == '/game_report/round/2'
+
+
+@pytest.mark.wip
+def test_game_report(client):
+    response = client.get("/gamereport/round/2")
+    body = BeautifulSoup(response.data, 'html5lib')
+    import ipdb; ipdb.set_trace()
+    report_tag = body.find("div", attrs={"name": "round_2"})
+    assert report_tag
+    assert report_tag.text

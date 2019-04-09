@@ -32,5 +32,13 @@ def authenticate():
 
 @app.route("/game")
 def game():
-    """Displays the choice for either a new game, the current one or an already finished."""
+    """Displays the choice for either a new game,
+    the current one or an already finished."""
     return render_template("game.html")
+
+
+@app.route("/gamereport/round/<round_nbr>")
+def game_report(round_nbr):
+    """Fetches the game report for a specific round."""
+    report_text = None
+    return render_template("game_report.html", round_nbr=round_nbr, report=report_text)
