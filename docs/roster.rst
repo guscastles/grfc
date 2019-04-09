@@ -6,13 +6,13 @@ The roster shows the order, the person and the date that each parent should cont
 roster.roster
 -------------
 
-.. automodule:: roster
+.. automodule:: roster.roster
    :members:
 
 
 roster.new_roster
 -----------------
 
-.. automodule:: new_roster
+.. automodule:: roster.new_roster
    :members:
 

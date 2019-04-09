@@ -5,11 +5,11 @@ This is the Flask web app (mobile-responsive version) for the statistics collect
 grfcapp.app
 --------------
 
-.. automodule:: app
+.. automodule:: grfcapp.app
    :members:
 
 grfcapp.validation
 ------------------
 
-.. automodule:: validation
+.. automodule:: grfcapp.validation
    :members:

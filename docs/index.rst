@@ -10,10 +10,10 @@ Welcome to GRFC's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   docs/roster
-   docs/grfcapp
-   docs/game
-   docs/grfc
+   roster
+   grfcapp
+   game
+   grfc
 
 Indices and tables
 ==================
@@ -24,8 +24,15 @@ Indices and tables
 
 Technology Stack
 ================
+
 * Heroku hosting
+    + Environment variables
+        + Using the CLI
+        + heroku config:set FLASK_ENV=production
+    + FLASK_ENV
+    + FLASK_APP
 * Flask
+    + Talisman 
 * JQuery
 * SQLite
 
@@ -33,3 +40,16 @@ Application Overview
 ====================
 
 The application's initial screen is the login screen. Users are pre-signed up, with usernames and passwords stored in the database.
+
+Running Locally
+---------------
+
+.. code-block:: python
+
+   export FLASK_ENV=development
+   FLASK_APP=./wsgi.py flask run
+
+Development And Unit Test
+-------------------------
+
+The folder `test` contains the test files that can be run wity *pytest*. Before running the tests, the above environment variable, `FLASK_APP` should be set.

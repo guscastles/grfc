@@ -14,11 +14,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('./roster'))
-sys.path.insert(0, os.path.abspath('./grfcapp'))
-sys.path.insert(0, os.path.abspath('./grfc'))
-sys.path.insert(0, os.path.abspath('./grfc/game'))
+sys.path.insert(0, os.path.abspath('..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -28,9 +24,9 @@ copyright = '2019, Gus Garcia'
 author = 'Gus Garcia'
 
 # The short X.Y version
-version = '1.0'
+version = '1.0.0'
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = '1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -45,7 +41,11 @@ release = '1.0.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
 ]
@@ -110,7 +110,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'grfcdoc'
+htmlhelp_basename = 'GRFCdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -137,7 +137,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'grfc.tex', 'GRFC Documentation',
+    (master_doc, 'GRFC.tex', 'GRFC Documentation',
      'Gus Garcia', 'manual'),
 ]
 
@@ -158,8 +158,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'grfc', 'GRFC Documentation',
-     author, 'grfc', 'One line description of project.',
+    (master_doc, 'GRFC', 'GRFC Documentation',
+     author, 'GRFC', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -183,3 +183,21 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+
+# -- Options for intersphinx extension ---------------------------------------
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'https://docs.python.org/': None}
+
+# -- Options for todo extension ----------------------------------------------
+
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+todo_include_todos = True
+
+autodoc_mock_imports = ["flask_talisman",
+                        "wtforms",
+                        "apiclient",
+                        "googleapiclient",
+                        "httplib2",
+                        "oauth2client",
+                        ]
