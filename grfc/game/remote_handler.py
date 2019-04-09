@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Remote File Handler
+
 Handles the access and fetching of remote spreadsheets in Google Sheets.
 """
 from apiclient.discovery import build
@@ -32,28 +34,34 @@ def fetch_data(round_name):
 
 
 def all_spreadsheets(user_credentials=credentials()):
-    """Fetches all spreadsheets from the Google Sheets account"""
+    """Fetches all spreadsheets from the Google Sheets account
+    
+    :param dict user_credentials: The credentials dicitionary, with
+        username and password for the HTTP headers. Default value comes
+        from function *credentials*.
+    :return: All the spreadsheets from the Google Sheets web app.
+    """
     service = build('sheets', 'v4', http=user_credentials.authorize(Http()))
     return service.spreadsheets()
 
 
 def remote_data():
     """Fetches the data from the Google Sheets website, returning
-    all valid spreadsheets (Round 1 through 18)."""
+    all valid spreadsheets (Round 1 through 18).
+    """
     ranges = [f"'Round {round}'!A1:F29" for round in range(1, 19)]
     sheet = spreadsheet_data(ranges)
     return [_create_dataframe(round_sheet) for round_sheet in sheet.get('valueRanges', [])]
 
 
 def spreadsheet_data(ranges_names, spreadsheets=all_spreadsheets(), spreadsheet_id=SPREADSHEET_ID):
-    """Fetches a specific data range in a specific spreadsheet"""
-    try:
-        values = spreadsheets.values()
-        if isinstance(ranges_names, list):
-            return values.batchGet(spreadsheetId=spreadsheet_id, ranges=ranges_names).execute()
-        return values.get(spreadsheetId=spreadsheet_id, range=ranges_names).execute()
-    except HttpError:
-        return {}
+   try:
+       values = spreadsheets.values()
+       if isinstance(ranges_names, list):
+           return values.batchGet(spreadsheetId=spreadsheet_id, ranges=ranges_names).execute()
+       return values.get(spreadsheetId=spreadsheet_id, range=ranges_names).execute()
+   except HttpError:
+       return {}
 
 
 def _create_dataframe(round_sheet):
