@@ -46,17 +46,22 @@ def test_authenticate_with_invalid_username(client):
 #    assert body.find("div", attrs={"name": "choice"})
 
 
-@pytest.mark.wip
 def test_game_report_page():
-    with app.test_request_context('/game_report/round/2'):
-        assert flask.request.path == '/game_report/round/2'
+    with app.test_request_context('/game/report/round/2'):
+        assert flask.request.path == '/game/report/round/2'
 
 
-@pytest.mark.wip
 def test_game_report(client):
-    response = client.get("/gamereport/round/2")
+    response = client.get("/game/report/round/0")
     body = BeautifulSoup(response.data, 'html5lib')
-    import ipdb; ipdb.set_trace()
     report_tag = body.find("div", attrs={"name": "round_2"})
     assert report_tag
-    assert report_tag.text
+    assert report_tag.text.strip() == 'Report not available.'
+
+
+def test_game_report(client):
+    response = client.get("/game/report/round/2")
+    body = BeautifulSoup(response.data, 'html5lib')
+    report_tag = body.find("div", attrs={"name": "round_2"})
+    assert report_tag
+    assert len(report_tag.text.strip()) > 50

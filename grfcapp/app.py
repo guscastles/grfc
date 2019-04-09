@@ -3,7 +3,7 @@ GRFC Stats Collector Application
 
 Flask module holding the main routes for the mobile application.
 """
-from os import environ as env
+from os import environ as env, path
 from flask import Flask, render_template, redirect, url_for
 from flask_talisman import Talisman
 from grfcapp.validation import check_request_params
@@ -37,8 +37,18 @@ def game():
     return render_template("game.html")
 
 
-@app.route("/gamereport/round/<round_nbr>")
+@app.route("/game/report/round/<int:round_nbr>")
 def game_report(round_nbr):
     """Fetches the game report for a specific round."""
-    report_text = None
-    return render_template("game_report.html", round_nbr=round_nbr, report=report_text)
+    report_text = read_report(round_nbr)
+    return render_template("game_report.html",
+                           round_nbr=round_nbr,
+                           report=report_text)
+
+
+def read_report(round_nbr):
+    file_name = 'report/round_%d.txt' % round_nbr
+    if not path.isfile(file_name):
+        return 'Report not avaialble.'
+    with open(file_name) as report_input:
+        return report_input.read()

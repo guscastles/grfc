@@ -2,10 +2,27 @@
 <html>
     <head>
         <title>Game Report - Round {{ round_nbr }}</title>
+        <style>
+            div.text {
+                width: 400px;
+                white-space: pre;
+                text-align: justify;
+                font-family: monospace;
+            }
+
+            textarea {
+                text-align: justify;
+                width: 500px;
+                border: none;
+                resize: none;
+                height: 500px;
+                white-space: pre-line;
+            }
+        </style>
     </head>
     <body>
-        <div name="round_{{ round_nbr }}">
-            {{ report }}
+        <div class="text" name="round_{{ round_nbr }}">
+            <textarea readonly="readonly">{{ report }}</textarea>
         </div>
     </body>
 </html>
