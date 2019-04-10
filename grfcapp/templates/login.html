@@ -1,10 +1,9 @@
-<!doctype html>
-<html>
-    <head>
-    </head>
-    <body>
-        <section class="sides">
-        <section class="middle" id="login">
+{% extends "base.html" %}
+{% block page_title  %}GRFC - Login{% endblock %}
+    {% block page_style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    {% endblock %}
+           {% block page_body %}
             <form id="login_form" method="POST" action="{{ url_for('authenticate') }}">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" size="30" max="50">
@@ -12,7 +11,4 @@
                 <input type="password" id="password" name="password" size="30" max="50">
                 <input type="submit" name="Login">
             </form>
-        </section>
-        <section class="sides">
-    </body>
-</html>
+            {% endblock %}

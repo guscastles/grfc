@@ -1,13 +1,11 @@
-<!doctype html>
-<html>
-    <head>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block page_title  %}GRFC - Page Not Found{% endblock %}
+    {% block page_style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    {% endblock %}
+    {% block page_body %}
         <div name="not_found">
             <p>{{ message }}</p>
-            <p>{{ url_for("login") }}
+            <p><a href="{{ url_for("login") }}">Login</a></p>
         </div>
-    </body>
-</html>
-
-
+    {% endblock %}

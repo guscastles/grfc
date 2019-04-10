@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{% block page_title %}{% endblock %}</title>
+        {% block page_style %}
+        {% endblock %}
+    </head>
+    <body>
+        <section class="sides">
+        </section>
+        <section class="middle" id="login">
+        {% block page_body %}
+        {% endblock %}
+        </section>
+        <section class="sides">
+        </section>
+    </body>
+</html>
