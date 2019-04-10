@@ -32,4 +32,3 @@ def test_fetch_whole_tigers_spreadsheet():
     ranges = [f"'Round {round}'!A1:G29" for round in range(1, 19)]
     tigers = rh.spreadsheet_data(ranges)
     assert tigers.get('valueRanges', [])
-

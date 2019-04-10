@@ -1,8 +1,9 @@
 """
-Test module for game time
+Play Time Unit Tests
+
+Test module for game.play_time module.
 """
 import os
-import pytest
 from shutil import os as shos
 from grfc.game import play_time as pt, INPUT_FOLDER, GRFC_FILE, \
      game_data as gd, play_time_support as pts
@@ -18,7 +19,8 @@ def test_file_available():
 
 
 def test_overall_time_offs():
-    data = [pts.time_for_players(_data_from_file(f'Round {round_nbr}')) for round_nbr in range(1, 6)]
+    data = [pts.time_for_players(_data_from_file(f'Round {round_nbr}'))
+            for round_nbr in range(1, 6)]
     stats = pt.data_stats(*pt.valid_data(data))
     assert len(stats) == 4 and len(stats.columns) == 10
     assert 'turns in goals' in stats.index

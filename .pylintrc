@@ -1,2 +1,3 @@
 [docstrings]
 docstring-min-length=10 
+no-docstring-rgx=^(_|test)

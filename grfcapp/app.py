@@ -47,8 +47,19 @@ def game_report(round_nbr):
 
 
 def read_report(round_nbr):
+    """Reads the report for the given round_nbr from the
+    source file and returns the text."""
     file_name = 'report/round_%d.txt' % round_nbr
     if not path.isfile(file_name):
-        return 'Report not avaialble.'
+        return 'Report not available.'
     with open(file_name) as report_input:
         return report_input.read()
+
+
+@app.errorhandler(404)
+def no_page_found(e):
+    """Displays the error message for any unknown web page."""
+    message = ("Oops! This page is not there. Please "
+               "contact the administrator for further"
+               " information.")
+    return render_template("404.html", message=message), 404

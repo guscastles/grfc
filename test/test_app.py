@@ -27,23 +27,25 @@ def test_login_screen(client):
 
 
 def test_authenticate_with_short_password(client):
-    response = client.post("/authenticate", data={"username": "test", "password": "test"})
+    response = client.post("/authenticate",
+                           data={"username": "test", "password": "test"})
     message = response.json.get("errors").get("password").pop()
     assert message == 'Field must be between 12 and 20 characters long.'
 
 
 def test_authenticate_with_no_username(client):
-    response = client.post("/authenticate", data={"username": "", "password": "test"})
+    response = client.post("/authenticate",
+                           data={"username": "", "password": "test"})
     message = response.json.get("errors").get("username").pop()
     assert message == "This field is required."
 
 
 def test_authenticate_with_invalid_username(client):
-    response = client.post("/authenticate", data={"username": "<script>alert('Alert')</script>", "password": "test"})
+    response = client.post("/authenticate",
+                           data={"username": "<script>alert('Alert')</script>",
+                                 "password": "test"})
     message = response.json.get("errors").get("username").pop()
     assert message == "Invalid username"
-#    body = BeautifulSoup(response.data)
-#    assert body.find("div", attrs={"name": "choice"})
 
 
 def test_game_report_page():
@@ -51,10 +53,10 @@ def test_game_report_page():
         assert flask.request.path == '/game/report/round/2'
 
 
-def test_game_report(client):
+def test_game_report_with_wrong_round(client):
     response = client.get("/game/report/round/0")
     body = BeautifulSoup(response.data, 'html5lib')
-    report_tag = body.find("div", attrs={"name": "round_2"})
+    report_tag = body.find("div", attrs={"name": "round_0"})
     assert report_tag
     assert report_tag.text.strip() == 'Report not available.'
 
@@ -65,3 +67,14 @@ def test_game_report(client):
     report_tag = body.find("div", attrs={"name": "round_2"})
     assert report_tag
     assert len(report_tag.text.strip()) > 50
+
+
+def test_no_page_found(client):
+    response = client.get("/not_there")
+    body = BeautifulSoup(response.data, 'html5lib')
+    message_div = body.find("div", attrs={"name": "not_found"})
+    assert message_div
+    message = message_div.find("p") 
+    assert message.text.strip() == ("Oops! This page is not there. Please "
+                                    "contact the administrator for further"
+                                        " information.")
