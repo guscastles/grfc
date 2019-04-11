@@ -4,7 +4,9 @@ GRFC Stats Collector Application
 Flask module holding the main routes for the mobile application.
 """
 from os import environ as env, path
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, \
+                  redirect, url_for, \
+                  send_from_directory
 from flask_talisman import Talisman
 from grfcapp.validation import check_request_params
 app = Flask(__name__)
@@ -63,3 +65,10 @@ def no_page_found(e):
                "contact the administrator for further"
                " information.")
     return render_template("404.html", message=message), 404
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(path.join(app.root_path, 'static'),
+                               'favicon.ico',
+                               mimetype='image/vnd.microsoft.icon')
