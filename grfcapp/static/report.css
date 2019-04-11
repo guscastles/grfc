@@ -1,0 +1,15 @@
+div.text {
+    width: 400px;
+    white-space: pre;
+    text-align: justify;
+    font-family: monospace;
+}
+
+textarea {
+    text-align: justify;
+    width: 500px;
+    border: none;
+    resize: none;
+    height: 500px;
+    white-space: pre-line;
+}
