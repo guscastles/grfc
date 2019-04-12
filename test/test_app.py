@@ -4,6 +4,8 @@ Unit tests for the mobile app.
 import pytest
 import flask
 from bs4 import BeautifulSoup
+import os
+os.environ["FLASK_ENV"] = "development"
 from grfcapp.app import app
 
 
